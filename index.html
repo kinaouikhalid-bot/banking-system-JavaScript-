@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Banking System</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial; padding: 2rem; }
+    h1 { color: #0b5; }
+    .note { margin-top: 1rem; color: #444; }
+    .controls { margin-top: 1.5rem; }
+    button { margin-right: 0.5rem; }
+  </style>
+</head>
+<body>
+  <h1>Banking System</h1>
+  <p class="note">Open the browser console to interact with the JavaScript objects. Example: <code>accounts.acc1.deposit(50)</code></p>
+
+  <div class="controls">
+    <button id="showAccounts">Show Accounts in Console</button>
+    <button id="quickDeposit">Quick Deposit to Alice (£20)</button>
+    <button id="quickWithdraw">Quick Withdraw from Bob (£10)</button>
+  </div>
+
+  <script type="module">
+    import { BankAccount } from './bankAccount.js';
+
+    // Create demo accounts
+    const acc1 = new BankAccount('1001', 'Alice', 500);
+    const acc2 = new BankAccount('1002', 'Bob', 150);
+
+    // Expose to window so user can use them from the console
+    window.BankAccount = BankAccount;
+    window.accounts = { acc1, acc2 };
+
+    // Small UI helpers
+    document.getElementById('showAccounts').addEventListener('click', () => {
+      console.log('Accounts object is available as window.accounts');
+      console.log(window.accounts);
+      alert('Accounts logged to console. Use window.accounts.acc1 or window.accounts.acc2 in console.');
+    });
+
+    document.getElementById('quickDeposit').addEventListener('click', () => {
+      acc1.deposit(20);
+      console.log('Deposited £20 to Alice. New balance:', acc1.checkBalance());
+      alert('Deposited £20 to Alice. Check console for details.');
+    });
+
+    document.getElementById('quickWithdraw').addEventListener('click', () => {
+      try {
+        acc2.withdraw(10);
+        console.log('Withdrew £10 from Bob. New balance:', acc2.checkBalance());
+        alert('Withdrew £10 from Bob. Check console for details.');
+      } catch (err) {
+        console.error(err);
+        alert('Withdrawal failed: ' + err.message);
+      }
+    });
+
+    // Helpful message in console on page load
+    console.log('Banking System loaded. Use window.accounts.acc1 and window.accounts.acc2 to interact.');
+    console.log('Example: window.accounts.acc1.deposit(100); window.accounts.acc1.checkBalance();');
+  </script>
+</body>
+</html>

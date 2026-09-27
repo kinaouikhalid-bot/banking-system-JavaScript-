@@ -217,4 +217,4 @@ This project demonstrates:
 - Interest calculations
 - A full banking dashboard
 
-See BLOG_POST.md for the longer written walkthrough and VIDEO_WALKTHROUGH_SCRIPT.md for the project video script.
+See BANKING_SYSTEM_BLOG.md for the longer written walkthrough and BANKING_SYSTEM_VIDEO_SCRIPT.md for the project video script.
